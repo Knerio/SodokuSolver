@@ -19,7 +19,7 @@ public class Sodoku {
     private List<List<Integer>> current = new ArrayList<>();
 
     public Sodoku(String resource) {
-        InputStream stream = Main.class.getClassLoader().getResourceAsStream(resource);
+        InputStream stream = Sodoku.class.getClassLoader().getResourceAsStream(resource);
         Stream<String> lines = new BufferedReader(new InputStreamReader(stream))
                 .lines();
         lines.forEach(line -> {
