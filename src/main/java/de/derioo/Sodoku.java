@@ -94,29 +94,22 @@ public class Sodoku {
         }
     }
 
-
-    public static void main(String[] args) throws InterruptedException {
-        Sodoku sodoku = new Sodoku("sodoku.txt");
-        solve(sodoku);
-        sodoku.printBoard();
-    }
-
-    private static boolean solve(Sodoku sodoku) throws InterruptedException {
+    public boolean solve() throws InterruptedException {
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
-                if (sodoku.current.get(row).get(col) == -1) {
+                if (current.get(row).get(col) == -1) {
                     for (int num = 1; num <= 9; num++) {
-                        if (sodoku.isValid(row, col, num)) {
-                            sodoku.update(200);
-                            sodoku.current.get(row).set(col, num);
-                            if (solve(sodoku)) {
+                        if (isValid(row, col, num)) {
+                            update(200);
+                            current.get(row).set(col, num);
+                            if (solve()) {
                                 return true;
                             }
                         } else {
-                            sodoku.current.get(row).set(col, num);
+                            current.get(row).set(col, num);
                         }
-                        sodoku.update(90);
-                        sodoku.current.get(row).set(col, -1);
+                        update(90);
+                        current.get(row).set(col, -1);
                     }
                     return false;
                 }
@@ -130,4 +123,15 @@ public class Sodoku {
         this.printBoard();
         Thread.sleep(delay);
     }
+
+
+
+
+    public static void main(String[] args) throws InterruptedException {
+        Sodoku sodoku = new Sodoku("sodoku.txt");
+        sodoku.solve();
+        sodoku.printBoard();
+    }
+
+
 }
